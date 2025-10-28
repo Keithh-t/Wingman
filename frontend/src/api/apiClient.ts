@@ -23,6 +23,12 @@ api.interceptors.response.use(
 /** ---- Types (keep simple here; move to /types later if it grows) ---- */
 export type Health = { status: string };
 export type Topic  = { id: number; slug: string; name: string };
+export type Question = {
+  id: number;
+  topic_id: number;
+  difficulty: number;
+  question: string;
+};
 
 /** ---- Endpoint functions (co-located for now) ---- */
 export async function getHealth(): Promise<Health> {
@@ -32,6 +38,11 @@ export async function getHealth(): Promise<Health> {
 
 export async function getTopics(): Promise<Topic[]> {
   const { data } = await api.get<Topic[]>("/topics");
+  return data;
+}
+
+export async function getQuestions(params: { topic_id?: number }) {
+  const { data } = await api.get<Question[]>("/questions", { params });
   return data;
 }
 
