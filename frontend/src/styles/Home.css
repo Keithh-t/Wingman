@@ -1,0 +1,31 @@
+.home-root { padding: 1.5rem; display: grid; gap: 1.25rem; }
+
+.home-h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+
+.home-status { color: #444; padding: 1.5rem; }
+.home-error { color: #b91c1c; padding: 1.5rem; }
+
+.home-quick-row { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.home-card {
+  display: block;
+  text-decoration: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+  min-width: 220px;
+  color: #111827;
+  background: #fff;
+}
+.home-card:hover { background: #f9fafb; }
+.home-card-title { font-weight: 600; }
+.home-card-sub { font-size: 0.9rem; color: #6b7280; margin-top: 0.25rem; }
+
+.home-topics-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.home-topic-btn {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+.home-topic-btn:hover { background: #e5e7eb; }
