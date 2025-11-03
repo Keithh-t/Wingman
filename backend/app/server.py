@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
-from routers import attempts, questions
+from routers import attempts, questions, auth_routes, progress
 
 from database import get_db, list_topics, Question
 app = FastAPI()
@@ -32,4 +32,5 @@ def api_list_topics(db: Session = Depends(get_db)):
 
 app.include_router(questions.router)
 app.include_router(attempts.router)
-
+app.include_router(auth_routes.router)
+app.include_router(progress.router)
