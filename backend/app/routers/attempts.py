@@ -1,20 +1,28 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from services.auth import require_user
 from models import AttemptRequest, AttemptResponse
 from services.grading import grade_answer
-from database import get_db, Question
+from database import get_db, Question, get_question_by_id, record_attempt
 
 router = APIRouter(prefix="/api", tags=["attempts"])
 
 @router.post("/attempts", response_model=AttemptResponse)
-def submit_attempt(payload: AttemptRequest, db: Session = Depends(get_db)):
-    question = db.query(Question).get(payload.question_id)
+def submit_attempt(payload: AttemptRequest, db: Session = Depends(get_db), current_user = Depends(require_user)):
+    question = get_question_by_id(db, payload.question_id)
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
 
     is_correct = grade_answer(payload.user_answer, question.solution or "")
     feedback = None
+    record_attempt(
+        db,
+        user_id=current_user.id,
+        question_id=question.id,
+        user_answer=payload.user_answer,
+        correct=is_correct,
+    )
     # (Optional) choose whether to reveal anything on submit; keeping it minimal now.
     # feedback = "Nice job!" if is_correct else "Try again."
 
-    return {"correct": is_correct, "feedback": feedback}
+    return AttemptResponse(correct=is_correct, feedback=feedback)

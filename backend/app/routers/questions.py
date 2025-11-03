@@ -1,11 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import get_db, Question
+from database import get_db, Question, get_question_by_id
 from models import QuestionDetail, QuestionListItem
 
 router = APIRouter(prefix="/api", tags=["questions"])
 
 @router.get("/questions", response_model=list[QuestionListItem])
+# might move this method to the database.py file later
 def list_questions(topic_id: int | None = None, db: Session = Depends(get_db)):
     q = db.query(Question)
     if topic_id is not None:
@@ -22,8 +23,8 @@ def list_questions(topic_id: int | None = None, db: Session = Depends(get_db)):
     ]
 
 @router.get("/questions/{question_id}", response_model=QuestionDetail)
-def api_get_question(question_id: int, db: Session = Depends(get_db)):
-    question = db.query(Question).get(question_id)
+def get_question_by_id_route(question_id: int, db: Session = Depends(get_db)):
+    question = get_question_by_id(db, question_id)
     if not question:
         raise HTTPException(status_code=404, detail="Question not found")
     return {
