@@ -11,7 +11,7 @@ from database import (
     get_user_accuracy,
 )
 
-router = APIRouter(prefix="/progress", tags=["practice"])
+router = APIRouter(prefix="/api", tags=["practice"])
 
 class AttemptRecord(BaseModel):
     question_id: int
