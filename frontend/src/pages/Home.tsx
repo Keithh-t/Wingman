@@ -13,7 +13,7 @@ export default function Home() {
     getTopics()
       .then(setTopics)
       .catch((e: any) => {
-        if (e?.code === "ERR_CANCELED") return;
+        if (e?.code === "ERR_CANCELED" || /canceled/i.test(e?.message ?? "")) return;
         setError("Failed to load topics");
       });
     return () => controller.abort();
@@ -22,25 +22,38 @@ export default function Home() {
   if (error) return <div className="home-error">{error}</div>;
   if (!topics) return <div className="home-status">Loading…</div>;
 
+  // AI formatted
   return (
     <div className="home-root">
-      <section className="home-quick">
-        <h2 className="home-h2">Quick Links</h2>
-        <div className="home-quick-row">
-          <Link to="/questions" className="home-card">
-            <div className="home-card-title">Question Bank</div>
-            <div className="home-card-sub">Browse and submit answers</div>
+      {/* Hero */}
+      <section className="home-hero">
+        <h1>Wingman</h1>
+        <p>Your co-pilot for mastering Mechanical & Aerospace interview questions.</p>
+      </section>
+
+      {/* Get Started / Quick Links */}
+      <section className="quick-links">
+        <h2>Get Started</h2>
+        <div className="ql-grid">
+          <Link to="/questions" className="ql-card">
+            <h3>Question Bank</h3>
+            <p>Browse and practice technical questions.</p>
+          </Link>
+          <Link to="/progress" className="ql-card">
+            <h3>Progress</h3>
+            <p>Check accuracy and recent attempts.</p>
           </Link>
         </div>
       </section>
 
+      {/* Topics */}
       <section className="home-topics">
-        <h2 className="home-h2">Topics</h2>
-        <div className="home-topics-row">
+        <h2 className="topics-title">Topics</h2>
+        <div className="topics">
           {topics.map((t) => (
             <button
               key={t.id}
-              className="home-topic-btn"
+              className="topic-button"
               onClick={() => navigate(`/dashboard?topic=${t.id}`)}
             >
               {t.name}
@@ -48,6 +61,11 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* CTA */}
+      <div className="home-cta">
+        <Link to="/dashboard" className="btn cta">Start Practicing</Link>
+      </div>
     </div>
   );
 }
