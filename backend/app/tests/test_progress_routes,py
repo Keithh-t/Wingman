@@ -1,0 +1,55 @@
+from sqlalchemy.orm import Session
+
+from database import Question, record_attempt
+
+
+def test_progress_requires_auth(client):
+    resp = client.get("/api/progress")
+    assert resp.status_code == 401
+
+
+def test_progress_with_attempts(client, db_session: Session, override_require_user):
+    user = override_require_user 
+
+    q = Question(
+        topic_id=1,
+        text="Q?",
+        difficulty=1,
+        solution="a",
+    )
+    db_session.add(q)
+    db_session.commit()
+    db_session.refresh(q)
+
+    # 1 correct, 1 incorrect for this user
+    record_attempt(
+        db_session,
+        user_id=user.id,
+        question_id=q.id,
+        user_answer="a",
+        correct=True,
+    )
+    record_attempt(
+        db_session,
+        user_id=user.id,
+        question_id=q.id,
+        user_answer="b",
+        correct=False,
+    )
+
+    resp = client.get("/api/progress", params={"limit": 10})
+    assert resp.status_code == 200
+
+    data = resp.json()
+    assert "attempts" in data
+    assert "accuracy" in data
+    assert len(data["attempts"]) == 2
+
+    assert data["accuracy"] == 0.5
+
+    # Check shape of attempt records
+    attempt = data["attempts"][0]
+    assert "question_id" in attempt
+    assert "user_answer" in attempt
+    assert "correct" in attempt
+    assert "submitted_at" in attempt
