@@ -22,6 +22,7 @@ class Topic(Base):
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     name: Mapped[str] = mapped_column(String(100), nullable=False)
+    # AI suggested adding slug for better URL handling
     slug: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     
     questions: Mapped[list["Question"]] = relationship(back_populates="topic")
