@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getHealth } from "../api/apiClient";
 
+// AI generated
 export default function HealthBadge() {
   const [status, setStatus] = useState<"…" | "ok" | "error">("…");
   useEffect(() => {

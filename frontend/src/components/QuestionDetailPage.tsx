@@ -1,10 +1,10 @@
+// src/pages/QuestionDetailPage.tsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getQuestionById, postAttempt, 
-type QuestionDetail, type AttemptResult } from "../api/apiClient";
+import { getQuestionById, getTopics, postAttempt,
+  type QuestionDetail, type AttemptResult, type Topic } from "../api/apiClient";
 import "../styles/QuestionDetailPage.css";
 
-// mostly ai suggested
 export default function QuestionDetailPage() {
   const { id } = useParams();
   const qid = useMemo(() => {
@@ -13,6 +13,7 @@ export default function QuestionDetailPage() {
   }, [id]);
 
   const [question, setQuestion] = useState<QuestionDetail | null>(null);
+  const [topicName, setTopicName] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
@@ -34,6 +35,13 @@ export default function QuestionDetailPage() {
       .then((data) => {
         setQuestion(data);
         setErr(null);
+        // fetch topic name (non-blocking)
+        getTopics()
+          .then((ts: Topic[]) => {
+            const t = ts.find((x) => x.id === data.topic_id);
+            setTopicName(t ? t.name : `Topic #${data.topic_id}`);
+          })
+          .catch(() => setTopicName(`Topic #${data.topic_id}`));
       })
       .catch((e: any) => {
         if (e?.code === "ERR_CANCELED") return;
@@ -75,6 +83,9 @@ export default function QuestionDetailPage() {
     }
   }
 
+  const diff = question ? toDifficulty(question.difficulty) : null;
+
+  // AI formatted
   return (
     <div className="qd-root">
       <div className="qd-header">
@@ -91,9 +102,9 @@ export default function QuestionDetailPage() {
             <div className="qd-row">
               <div className="qd-main">
                 <p className="qd-question">{question.question}</p>
-                <div className="qd-subtext">Topic #{question.topic_id}</div>
+                <div className="qd-subtext">{topicName ?? `Topic #${question.topic_id}`}</div>
               </div>
-              <span className="qd-badge">D{question.difficulty}</span>
+              {diff && <span className={`qd-badge ${diff.cls}`}>{diff.label}</span>}
             </div>
           </div>
 
@@ -125,4 +136,13 @@ export default function QuestionDetailPage() {
       )}
     </div>
   );
+}
+
+function toDifficulty(d: number): { label: string; cls: string } {
+  switch (d) {
+    case 1: return { label: "Easy",   cls: "qd-badge--easy" };
+    case 2: return { label: "Medium", cls: "qd-badge--medium" };
+    case 3: return { label: "Hard",   cls: "qd-badge--hard" };
+    default: return { label: `D${d}`, cls: "qd-badge--unknown" };
+  }
 }
