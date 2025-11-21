@@ -14,6 +14,7 @@ api.interceptors.response.use(
   (err) => {
     const msg =
       err.response?.data?.message ||
+      err.response?.data?.detail ||
       err.message ||
       "Request failed";
     return Promise.reject(new Error(msg));
@@ -44,6 +45,18 @@ export type AttemptResult = {
 // ai suggested
 export type RequestOptions = { signal?: AbortSignal };
 
+export type AuthResponse = {
+  token: string;
+  user_id: number;
+  email: string;
+  username: string;
+};
+
+export type MeResponse = {
+  user_id: number;
+  email: string;
+  username: string;
+};
 
 
 
@@ -77,17 +90,46 @@ export async function postAttempt(payload: AttemptPost, options?: RequestOptions
   return data;
 }
 
-/* Example for later:
-export async function postAttempt(payload: { question_id: number; answer: string }) {
-  const { data } = await api.post<{ status: string; score: number }>("/attempts", payload);
+
+// Progress items
+
+export type ProgressItem = {
+  question_id: number;
+  user_answer: string;
+  correct: boolean;
+  attempted_at: string;
+};
+
+export type ProgressResponse = {
+  accuracy: number;
+  attempts: ProgressItem[];
+};
+
+export async function getProgress(limit =20, options?: RequestOptions) {
+  const { data } = await api.get<ProgressResponse>("/progress", {
+    params: { limit },
+    signal: options?.signal,
+  });
   return data;
 }
-*/
 
+// Authentication
 
-// /** Query keys for react-query - AI suggestion, check on it later*/
-// export const QK = {
-//   topics: ["topics"] as const,
-//   questions: (topic_id?: number) => ["questions", { topic_id }] as const,
-//   question: (id: number) => ["question", id] as const,
-// };
+export async function register(payload: { email: string; username: string; password: string }) {
+  const { data } = await api.post<AuthResponse>("/register", payload);
+  return data;
+}
+
+export async function login(payload: { email: string; password: string }) {
+  const { data } = await api.post<AuthResponse>("/login", payload);
+  return data;
+}
+
+export async function fetchMe() : Promise<MeResponse> {
+  const { data } = await api.get<MeResponse>("/me");
+  return data;
+}
+
+export async function logout() {
+  await api.post("/logout");
+}
