@@ -1,0 +1,55 @@
+/* Ai generated styles for Progress Page */
+.progress-page {
+  max-width: 760px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.progress-accuracy {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.progress-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.progress-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.progress-row {
+  font-size: 14px;
+  line-height: 1.3;
+}
+.muted {
+  color: #64748b;
+}
+
+.badge {
+  align-self: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+.badge.ok { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+.badge.bad { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }

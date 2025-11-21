@@ -1,3 +1,4 @@
+/* AI generated styles for Question List */
 .ql-root { padding: 1.5rem; }
 .ql-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
 
@@ -34,4 +35,27 @@
   font-weight: 600;
   border: 1px solid #e5e7eb;
   border-radius: 0.375rem;
+}
+
+
+/* Difficulty colors */
+.ql-badge--easy {
+  background: #ecfdf5;   /* emerald-50 */
+  color: #065f46;        /* emerald-900 */
+  border-color: #a7f3d0; /* emerald-200 */
+}
+.ql-badge--medium {
+  background: #fffbeb;   /* amber-50 */
+  color: #92400e;        /* amber-900 */
+  border-color: #fde68a; /* amber-300 */
+}
+.ql-badge--hard {
+  background: #fef2f2;   /* red-50 */
+  color: #991b1b;        /* red-800 */
+  border-color: #fecaca; /* red-200 */
+}
+.ql-badge--unknown {
+  background: #eef2ff;   /* indigo-50 */
+  color: #3730a3;        /* indigo-800 */
+  border-color: #c7d2fe; /* indigo-200 */
 }

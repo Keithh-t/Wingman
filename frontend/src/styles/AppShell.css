@@ -1,0 +1,85 @@
+/* Layout AI generated */
+.app {
+  min-height: 100dvh;
+  background: #f8fafc; /* slate-50 */
+  color: #0f172a;       /* slate-900 */
+  width: 100%;          /* Add this */
+}
+
+/* Top navigation */
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb; /* slate-200 */
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;          /* Add this */
+  box-sizing: border-box; /* Add this */
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-left {
+  flex: 1 1 auto;
+}
+
+.nav-right {
+  margin-left: auto;
+  gap: 12px;
+}
+
+/* Links */
+.nav-link {
+  text-decoration: none;
+  color: #0f172a;              /* slate-900 */
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background-color 120ms ease;
+  white-space: nowrap;         /* Add this - prevents text wrapping */
+}
+
+.nav-link:hover {
+  background: #f1f5f9;         /* slate-100 */
+}
+
+/* “Hi, username” text */
+.nav-user {
+  color: #334155;              /* slate-600 */
+  font-size: 14px;
+  white-space: nowrap;         /* Add this */
+}
+
+/* Logout button */
+.nav-button {
+  height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  font-weight: 600;
+  background: #6366f1;         /* indigo-500 */
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;         /* Add this */
+}
+
+.nav-button:hover {
+  background: #4f46e5;         /* indigo-600 */
+}
+
+/* Main area */
+.app-main {
+  padding: 16px;
+  width: 100%;                 /* Add this */
+  max-width: 1400px;           /* Add this - optional max width */
+  margin: 0 auto;              /* Add this - centers content */
+  box-sizing: border-box;      /* Add this - includes padding in width */
+}

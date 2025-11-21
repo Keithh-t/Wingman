@@ -1,3 +1,4 @@
+/* AI generated styles for Question Detail Page */
 .qd-root { padding: 1.5rem; }
 
 .qd-header {
@@ -72,3 +73,26 @@
 .qd-result--bad { border-color: #ef4444; }
 .qd-result-text { font-weight: 600; }
 .qd-feedback { margin-top: 0.25rem; color: #374151; font-size: 0.95rem; }
+
+
+/* Difficulty colors */
+.qd-badge--easy {
+  background: #ecfdf5;   /* emerald-50 */
+  color: #065f46;        /* emerald-900 */
+  border-color: #a7f3d0; /* emerald-200 */
+}
+.qd-badge--medium {
+  background: #fffbeb;   /* amber-50 */
+  color: #92400e;        /* amber-900 */
+  border-color: #fde68a; /* amber-300 */
+}
+.qd-badge--hard {
+  background: #fef2f2;   /* red-50 */
+  color: #991b1b;        /* red-800 */
+  border-color: #fecaca; /* red-200 */
+}
+.qd-badge--unknown {
+  background: #eef2ff;   /* indigo-50 */
+  color: #3730a3;        /* indigo-800 */
+  border-color: #c7d2fe; /* indigo-200 */
+}

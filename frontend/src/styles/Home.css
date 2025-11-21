@@ -1,3 +1,4 @@
+/* Styles AI generated for Home Page */
 .home-root { padding: 1.5rem; display: grid; gap: 1.25rem; }
 
 .home-h2 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
@@ -29,3 +30,65 @@
   cursor: pointer;
 }
 .home-topic-btn:hover { background: #e5e7eb; }
+
+/* Hero */
+.home-hero {
+  text-align: center;
+  margin: 2rem 0 1rem;
+}
+.home-hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e3a8a; /* deep navy */
+  margin: 0 0 .25rem;
+}
+.home-hero p {
+  color: #4b5563;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Get Started cards */
+.quick-links { text-align: center; margin-bottom: 2rem; }
+.quick-links h2 { margin: 0 0 .5rem; color: #1e3a8a; }
+
+.ql-grid {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 1rem; margin-top: .5rem;
+}
+.ql-card {
+  background: #fff; border: 1px solid #e5e7eb; border-radius: 12px;
+  padding: 1rem 1.25rem; width: 240px; text-decoration: none; color: inherit;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.ql-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.ql-card h3 { margin: .5rem 0; color: #1e3a8a; font-size: 1.1rem; }
+.ql-card p { color: #4b5563; font-size: .9rem; margin: 0; }
+
+/* Topics tag board */
+.topics-title {
+  text-align: center; margin: 1rem 0 .5rem; color: #1e3a8a; font-size: 1.3rem;
+}
+.topics {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: .6rem; margin: 0 auto 2rem; max-width: 900px;
+}
+.topic-button {
+  padding: .5rem 1rem; border-radius: 9999px; background: #f3f4f6;
+  color: #374151; font-weight: 500; border: 1px solid #e5e7eb; cursor: pointer;
+  transition: background .15s, transform .15s, color .15s;
+}
+.topic-button:hover { background: #e0e7ff; color: #1e3a8a; transform: translateY(-1px); }
+
+/* CTA */
+.home-cta { text-align: center; margin-top: 1rem; }
+.btn.cta {
+  background: #f97316; color: #fff; padding: .75rem 1.5rem; border-radius: 9999px;
+  font-weight: 600; border: none; cursor: pointer; text-decoration: none;
+  display: inline-block; transition: filter .15s ease;
+}
+.btn.cta:hover { filter: brightness(1.1); }
+
+/* Existing status/error styles kept as-is */
+
