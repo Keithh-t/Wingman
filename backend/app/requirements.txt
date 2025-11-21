@@ -2,3 +2,6 @@ fastapi
 uvicorn
 sqlalchemy>=2.0
 psycopg[binary]
+pyjwt>=2.0
+passlib
+bcrypt
